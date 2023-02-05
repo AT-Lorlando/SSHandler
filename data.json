@@ -1,0 +1,10 @@
+{
+    "0": {
+        "email": "x@x.fr",
+        "password": "azerty",
+        "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsrimAKNOMGBqTrwdA1La4FPVP5aRhShIR9OkT3cKi2 x@x.fr"
+    },
+    "1": {
+        "email": "test2@test.fr"
+    }
+}
