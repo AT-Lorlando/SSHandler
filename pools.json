@@ -1,0 +1,15 @@
+{
+    "WebServer": {
+        "name": "Web Server",
+        "machines": [
+            "192.168.163.135"
+        ]
+    },
+    "ProxmoxServer": {
+        "name": "Proxmox Server",
+        "machines": [
+            "192.168.163.13X",
+            "192.168.163.13Y"
+        ]
+    }
+}

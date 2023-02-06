@@ -105,24 +105,37 @@ The population is done by the handler script, which connect to the machines via 
 
 When a public key is removed from the json file, the handler script revoke the public key. The handler script read the json file and revoke the public key.
 
+## Admin commands
+
+The handler script can be used by the admin to add or remove an employee from the json file. Those commands are :
+
+- Create a new employee
+- Remove an employee (wich will remove his public key from authorized_keys files)
+- Add a new pool of machines in pools, maybe with the employee who has access to it
+- Add a new machine in pool (wich will populate the machine with the public key)
+- Remove a machine from a pool (wich will revoke the public key)
+- Remove a pool of machines (wich will revoke the public key of every machines in the pool)
+- Revoke an employee (wich will revoke the public key of every machines in the pools, used if the employee is still there but lost his key)
+- Launch a check up of the machines (wich will check if the ssh-admin user is present, if the authorized_keys file is present, if the public key is present, if the public key is correct, if the public key is the same as the one in the json file)
+
+
 ## Pools
 
 The pools are used to sort every machines by their type. The pools are defined in the json file.
 
 ```json
 {
-    "pool1": {
+    "WebServer": {
         "name": "Web Server",
         "machines": [
-            "machine1",
-            "machine2"
+            "192.168.163.135"
         ]
     },
-    "pool2": {
-        "name": "Back Server",
+    "ProxmoxServer": {
+        "name": "Proxmox Server",
         "machines": [
-            "machine3",
-            "machine4"
+            "192.168.163.13X",
+            "192.168.163.13Y"
         ]
     }
 }
