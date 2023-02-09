@@ -162,3 +162,4 @@ When a key is added to the handler, the handler populate the pools with the new 
 - [ ] Verify if the pool exist, if the ip exist, etc
 - [ ] Admin.py must use jsonFunctions.py
 - [ ] Verify add and user deletion
+- [ ] Handle many pools when creating a new employee or populating a machine

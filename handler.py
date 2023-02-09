@@ -5,6 +5,7 @@ import json
 import re
 from settings import *
 from jsonFunctions import *
+from sshFunctions import *
 
 connections = []
 ThreadCount = 0
@@ -211,7 +212,16 @@ def multi_threaded_client(connection, thread):
     
     # End of the discussion with the client #
     
+    # Population of the pools #
+    
+    # Get the pool of the user #
+    
+    # TODO: More than one pool #
+    userPool = ReadFromFile(userID, 'pool')
+    
     # Populate the public key to the pools #
+    
+    Populate(email, password, userID, userPool)
     
     return    
 
@@ -230,26 +240,24 @@ def admin_thread():
 
 # def getMachinesFromPool(pool):
 
-def Populate(public_key, pool):
+def Populate(email, password, userID, pool):
     """
         Populate a pool with a public key.
         Connect on every machine of the pool and send the public key.
         Args:
-            public_key: (string) The public key you want to add to the pool
-            pool: (string) The pool you want to populate.
+            userID: (string) The ID of the user
+            pool: (string) The name of the pool
     """
-    for machine in getMachinesFromPool(pool):
-        # Connect to machine on port 4242 and send the public key #
-        print('Connecting to ' + machine + '...')
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((machine, 4242))
-            s.send(str.encode(public_key))
-            s.close()
-        except Exception as e:
-            print(e)
-            return False
-    return True
+    # Get the public key #
+    publicKey = ReadFromFile(userID, 'public_key')
+    
+    # Get the machines of the pool #
+    machines = getMachinesFromPool(pool)
+    
+    # Connect to every machine and send the public key #
+    for machine in machines:
+        print('Handler: connecting to ' + machine + '...')
+        AddNewUser(username=email, password=password, public_key=publicKey, machine=machine)
 
 
 if __name__ == '__main__':   
