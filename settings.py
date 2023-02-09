@@ -4,7 +4,7 @@ HANDLER_PORT = 4242
 
 # Handler
 DATAFILE = 'data.json'
-POOLFILE = 'pools.json'
+POOLSFILE = 'pools.json'
 
 ## SSH
 
