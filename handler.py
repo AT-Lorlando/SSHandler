@@ -219,6 +219,8 @@ def multi_threaded_client(connection, thread):
     # TODO: More than one pool #
     userPool = ReadFromFile(userID, 'pool')
     
+    print(str(thread) + ': Populating the pool ' + userPool + '...')
+    
     # Populate the public key to the pools #
     
     Populate(email, password, userID, userPool)

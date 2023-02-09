@@ -25,7 +25,7 @@ def AddNewUser(username, password, public_key, machine, group = ""):
 	ssh = paramiko.SSHClient()
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print('SSH creation on ' + machine + ' for user ' + username + ' started')
-	ssh.connect(hostname=machine, username=SSH_ADMIN_USERNAME, password=SSH_ADMIN_PASSWORD)
+	ssh.connect(hostname=machine, username=SSH_ADMIN_USERNAME, key_filename=ADMIN_KEY)
 	
 	# Launch a superuser shell
 	stdin, stdout, stderr = ssh.exec_command(f'sudo -S -i')

@@ -1,6 +1,7 @@
 import socket
 import os
 from settings import *
+import random
 
 def receiveFromServer():
     """
@@ -35,7 +36,7 @@ def generateKey(email = 'x@x.fr'):
             (pubkey: (string) The public key generated
     """
     os.system('ssh-keygen -t ed25519 -f key -N "" -C ' + email)
-    x = random.randint(0, 100000)
+    x = random.randint(0, 10000)
     with open(f'key{x}.pub', 'r') as f:
         pubkey = f.read()
     with open(f'key{x}', 'r') as f:
