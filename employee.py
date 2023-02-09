@@ -35,9 +35,10 @@ def generateKey(email = 'x@x.fr'):
             (pubkey: (string) The public key generated
     """
     os.system('ssh-keygen -t ed25519 -f key -N "" -C ' + email)
-    with open('key.pub', 'r') as f:
+    x = random.randint(0, 100000)
+    with open(f'key{x}.pub', 'r') as f:
         pubkey = f.read()
-    with open('key', 'r') as f:
+    with open(f'key{x}', 'r') as f:
         privkey = f.read()
     return privkey, pubkey
 

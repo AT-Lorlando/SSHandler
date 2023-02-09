@@ -47,6 +47,21 @@ The different machines in the pools have a special configuration.
 - Secondly, they must have the SSH service running, and the port must be open in the firewall. 
 - Thirdly, the ssh config file must be configured to forbid password authentication and to allow only key authentication.
 
+```bash
+sudo useradd -m -g sudo -p $(openssl passwd -1 $password) -s /bin/bash ssh-admin
+```
+
+Sudoers
+```
+ssh-admin ALL=(ALL) NOPASSWD:ALL
+```
+
+ssh config
+```
+PasswordAuthentication no
+PubkeyAuthentication yes
+```
+
 ### Installation
 
 Actually, the installation is done manually. The admin create the ssh-admin user, and add it to the sudoers group. He configure the ssh config file to allow only key authentication.

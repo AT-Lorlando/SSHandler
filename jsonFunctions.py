@@ -146,10 +146,9 @@ def getMachinesFromPool(pool):
             A list of machines from the pool.
     """
     # Read in json file the machines from the pool #
-    with open(POOLFILE, 'r') as f:
+    with open(POOLSFILE, 'r') as f:
         json_object = json.load(f)
         machines = []
-        for id in json_object:
-            if json_object[id]['pool'] == pool:
-                machines.append(json_object[id]['machine'])
+        for machine in json_object[pool]:
+            machines.append(machine)
         return machines
