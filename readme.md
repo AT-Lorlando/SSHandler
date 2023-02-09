@@ -147,6 +147,7 @@ When a key is added to the handler, the handler populate the pools with the new 
 
 ## To remember
 
+- [X] Admin commands
 - [ ] TLS Discussion between server and employee
 - [ ] The password must be given by the employee to configure the account on the machines
 - [ ] Verify the data file on every ssh connection
@@ -156,3 +157,8 @@ When a key is added to the handler, the handler populate the pools with the new 
 - [ ] Change the json file format to be more readable, or use a database
 - [ ] When the admin add a new machine to a pool, the handler must populate the machine with the public keys of the employees who have access to the pool
 - [ ] Generate the password of the employee automatically, and send it to him automatically too ? 
+- [ ] Add many pools when creating a new employee
+- [ ] JSON acces must be verified to not crash the program
+- [ ] Verify if the pool exist, if the ip exist, etc
+- [ ] Admin.py must use jsonFunctions.py
+- [ ] Verify add and user deletion
