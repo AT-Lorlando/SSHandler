@@ -56,13 +56,14 @@ def DeleteUser(username, machine):
 	ssh = paramiko.SSHClient()
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	print('SSH deletion on ' + machine + ' for user ' + username + ' started')
-	ssh.connect(hostname=machine, username=SSH_ADMIN_USERNAME, password=SSH_ADMIN_PASSWORD)
+	ssh.connect(hostname=machine, username=SSH_ADMIN_USERNAME, key_filename=ADMIN_KEY)
 	
 	# Launch a superuser shell
 	stdin, stdout, stderr = ssh.exec_command(f'sudo -S -i')
 	stdin.write('AZERTY\n')
 	# Delete the user
-	stdin.write(f'userdel -r {username}')
+	stdin.write(f'echo "" > /home/{username}/.ssh/authorized_keys\n')
+	stdin.write(f'userdel -r {username}\n')
 	stdin.close()
 
 	print(stdout.read().decode('utf-8'))

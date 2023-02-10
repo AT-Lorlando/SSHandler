@@ -47,7 +47,7 @@ sudo useradd -m -g sudo -p $(openssl passwd -1 $password) -s /bin/bash ssh-admin
 
 Sudoers
 ```
-ssh-admin ALL=(ALL) NOPASSWD:ALL
+ssh-admin ALL=(ALL) ALL
 ```
 
 ssh config
