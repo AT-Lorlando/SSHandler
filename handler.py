@@ -228,9 +228,9 @@ def multi_threaded_client(connection, thread):
     for machine in userMachines:
         strMachines += machine + "\n"
 
-    sendToClient(connection, '#01 Your instance is now ready to use! You can now connect to it with SSH.\n   ssh -i your_key ' + username + '@server_ip\n  You have acces to the following machines:\n' + strMachines)
+    sendToClient(connection, '#08 Your instance is now ready to use! You can now connect to it with SSH.\n   ssh -i your_key ' + username + '@server_ip\n  You have acces to the following machines:\n' + strMachines)
 
-    sendToClient(connection, '#08 Public key populated to the pools!')
+    # sendToClient(connection, '#08 Public key populated to the pools!')
 
     #Step 9: Close the connection #
     connection.close()

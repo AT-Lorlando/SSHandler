@@ -81,10 +81,12 @@ if __name__ == '__main__':
             sendToServer(publicKey)
         # if res start with #08, we can now end the connection
         elif code == '#08':
+            print(res)
             print('Connection ended')
-            ClientMultiSocket.close()
             running = False
         # if res start with #09, it's an error code, print it and exit
         elif code == '#09':
             print(res)
             exit(1)
+
+    ClientMultiSocket.close()
