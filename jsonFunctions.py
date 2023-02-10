@@ -149,6 +149,6 @@ def getMachinesFromPool(pool):
     with open(POOLSFILE, 'r') as f:
         json_object = json.load(f)
         machines = []
-        for machine in json_object[pool]:
+        for machine in json_object[pool]['machines']:
             machines.append(machine)
         return machines

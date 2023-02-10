@@ -217,8 +217,10 @@ def multi_threaded_client(connection, thread):
     userPool = ReadFromFile(userID, 'pool')
 
     # Populate the public key to the pools #
+    
+    username = email.split("@")[0]
 
-    Populate(email, password, userID, userPool)
+    Populate(username, password, userID, userPool)
 
     userMachines = getMachinesFromPool(userPool)
     # to string
@@ -226,7 +228,7 @@ def multi_threaded_client(connection, thread):
     for machine in userMachines:
         strMachines += machine + "\n"
 
-    sendToClient(connection, '#01 Your instance is now ready to use! You can now connect to it with SSH.\n   ssh -i your_key ' + email.split("@")[0] + '@server_ip\n  You have acces to the following machines:\n' + strMachines)
+    sendToClient(connection, '#01 Your instance is now ready to use! You can now connect to it with SSH.\n   ssh -i your_key ' + username + '@server_ip\n  You have acces to the following machines:\n' + strMachines)
 
     sendToClient(connection, '#08 Public key populated to the pools!')
 
@@ -250,7 +252,7 @@ def admin_thread():
 
 # def getMachinesFromPool(pool):
 
-def Populate(email, password, userID, pool):
+def Populate(username, password, userID, pool):
     """
         Populate a pool with a public key.
         Connect on every machine of the pool and send the public key.
@@ -267,7 +269,7 @@ def Populate(email, password, userID, pool):
     # Connect to every machine and send the public key #
     for machine in machines:
         print('Handler: connecting to ' + machine + '...')
-        AddNewUser(username=email, password=password, public_key=publicKey, machine=machine)
+        AddNewUser(username=username, password=password, public_key=publicKey, machine=machine)
 
 
 if __name__ == '__main__':   
