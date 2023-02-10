@@ -1,5 +1,5 @@
 import paramiko
-
+from settings import *
 
 # For testing purposes :
 #######################

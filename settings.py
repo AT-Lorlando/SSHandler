@@ -5,6 +5,7 @@ HANDLER_PORT = 4242
 # Handler
 DATAFILE = 'data.json'
 POOLSFILE = 'pools.json'
+ADMIN_KEY = 'ADMIN_KEY'
 
 ## SSH
 
