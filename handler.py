@@ -203,29 +203,37 @@ def multi_threaded_client(connection, thread):
         print(str(thread) + ': Public key saved for ' + email + '!') 
     
     # Step 8: Inform the client that the public key is saved #
-    sendToClient(connection, '#08 Public key saved!')
-    
+    sendToClient(connection, '#01 Public key saved!')
+
     # Close the connection now ? #
-    
-    #Step 9: Close the connection #
-    connection.close()
-    
+
     # End of the discussion with the client #
-    
+
     # Population of the pools #
-    
+
     # Get the pool of the user #
-    
+
     # TODO: More than one pool #
     userPool = ReadFromFile(userID, 'pool')
-    
-    print(str(thread) + ': Populating the pool ' + userPool + '...')
-    
+
     # Populate the public key to the pools #
-    
+
     Populate(email, password, userID, userPool)
-    
-    return    
+
+    userMachines = getMachinesFromPool(userPool)
+    # to string
+    strMachines = ""
+    for machine in userMachines:
+        strMachines += machine + "\n"
+
+    sendToClient(connection, '#01 Your instance is now ready to use! You can now connect to it with SSH.\n   ssh -i your_key ' + email.split("@")[0] + '@server_ip\n  You have acces to the following machines:\n' + strMachines)
+
+    sendToClient(connection, '#08 Public key populated to the pools!')
+
+    #Step 9: Close the connection #
+    connection.close()
+
+    return
 
 # ADMIN FUNCTIONS #
 

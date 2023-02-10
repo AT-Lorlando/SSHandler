@@ -6,29 +6,23 @@ An admin user (SSH_Handler) run the script python and the script wait for connec
 
 ## Server side
 
-A thread is created to read command given by the admin, like
-- add a new employee in data.json, with his password and machines he has access to
-- remove an employee from data.json, wich will remove his public key from authorized_keys files
-- add a new pool of machines in pools, maybe with the employee who has access to it
-- add a new machine in pool, and then populate it
-
-Another thread is created to listen for incoming connections from the employee. When a connection is etablished, the server thread it and start the discussion. When we receive the OK message, we can start to send informations.
+A thread is created to listen for incoming connections from the employee. When a connection is etablished, the server thread it and start the discussion. When we receive the OK message, we can start to send informations.
 More informations about the discussion between server and client in a future section.
 
-A final thread is created to populate the machines with the public keys. The thread read the json files and populate the machines.
-More informations about the populate in a future section.
+A second thread is created to populate the machines with the public keys. The thread read the json files and populate the machines.
+More informations about the population in a future section.
 
 ### Installation
 
-The installation is done manually by the admin. He install the script and make it run at startup.
+The installation is done manually by the admin. He install the script and make it run at startup with a process manager like systemd or pm2.
 
 ### Configuration
 
-The configuration is done by the admin. He can change the port of the server, the path of the json files, the name of the admin user, etc. Because this is the main script, the configuration here must be done with care.
+The configuration is done by the admin in `settings.py`. He can change the port of the server, the path of the json files, the name of the admin user, etc. Because this is the main script, the configuration here must be done with care.
 
 ## Employee side
 
-The client side is a simple script that connect to the server and import the public key of the employee. The script is run by the employee.
+The client side is a simple script that connect to the server and import the public key of the employee. The script is run by the employee. More about it later.
 
 ### Installation
 
@@ -43,7 +37,7 @@ Actually, it's difficult to configure the script on *every OS*. The generate_key
 ### Configuration
 
 The different machines in the pools have a special configuration. 
-- Firstly, they have a special user, with a special *password or a key*, and the user is in the sudoers group. This user is used to connect the handler via SSH and then populate. 
+- Firstly, they have a special user `ssh-admin`, with a special *password or a key*, and the user is in the sudoers group. This user is used to connect the handler via SSH to the machine and run a root shell to populate.
 - Secondly, they must have the SSH service running, and the port must be open in the firewall. 
 - Thirdly, the ssh config file must be configured to forbid password authentication and to allow only key authentication.
 
@@ -64,7 +58,7 @@ PubkeyAuthentication yes
 
 ### Installation
 
-Actually, the installation is done manually. The admin create the ssh-admin user, and add it to the sudoers group. He configure the ssh config file to allow only key authentication.
+Actually, the installation is done manually. The admin create the ssh-admin user, and add it to the sudoers group. He configure the ssh config file to allow only key authentication. It can be done with a script, but it was not the priority.
 
 ## Discussion between server and client
 
@@ -164,6 +158,7 @@ When a key is added to the handler, the handler populate the pools with the new 
 
 - [X] Admin commands
 - [ ] TLS Discussion between server and employee
+- [ ] The password must be ciphered in the json file, and gived to the employee in a secure way
 - [ ] The password must be given by the employee to configure the account on the machines
 - [ ] Verify the data file on every ssh connection
 - [ ] The key generation must work on every OS

@@ -78,14 +78,10 @@ if __name__ == '__main__':
         elif code == '#03':
             privateKey, publicKey = generateKey()
             sendToServer(publicKey)
-        # If res start with #03, it's a message from the server, asking for generate the key, generate it and send it.
-        elif code == '#03':
-            privateKey, publicKey = generateKey()
-            sendToServer(publicKey)
         # if res start with #08, we can now end the connection
         elif code == '#08':
-            print('Connection closed')
             ClientMultiSocket.close()
+            print('Connection closed')
             exit(0)
         # if res start with #09, it's an error code, print it and exit
         elif code == '#09':
