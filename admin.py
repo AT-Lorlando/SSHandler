@@ -1,6 +1,7 @@
 # File to create the admin command
 import json
 from jsonFunctions import *
+from sshFunctions import *
 
 def CreateEmployee():
     print("Enter the employee details")
@@ -49,6 +50,10 @@ def DeleteEmployee():
     print(f'Are you sure you want to delete the employee {json_object[ID]["email"]}? (y/n)')
     if input() == 'y':
         print("Deleting the employee...")
+        username = json_object[ID]['email'].split('@')[0]
+        machines = getMachinesFromPool(json_object[ID]['pool'])
+        for machine in machines:
+            DeleteUser(username, machine)
         # Delete the employee
         with open(DATAFILE, 'r') as f:
             json_object = json.load(f)
