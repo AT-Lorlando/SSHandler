@@ -31,7 +31,7 @@ def AddNewUser(username, password, public_key, machine, group = ""):
 	stdin, stdout, stderr = ssh.exec_command(f'sudo -S -i')
 	stdin.write('AZERTY\n')
 	# Create a new user and add his public key
-	stdin.write(f'useradd -m -g {group} -p $(openssl passwd -1 {password}) -s /bin/bash {username}')
+	stdin.write(f'useradd -m -p $(openssl passwd -1 {password}) -s /bin/bash {username}\n')
 	stdin.write(f'mkdir /home/{username}/.ssh\n')
 	stdin.write(f'touch /home/{username}/.ssh/authorized_keys\n')
 	stdin.write(f'echo {public_key} >> /home/{username}/.ssh/authorized_keys\n')

@@ -45,6 +45,7 @@ def generateKey(email = 'x@x.fr'):
 
 if __name__ == '__main__':
     ClientMultiSocket = socket.socket()
+    running = True
 
     print('Waiting for connection response')
 
@@ -62,7 +63,7 @@ if __name__ == '__main__':
         print('Connection failed')
         exit(1)
 
-    while True:
+    while running:
         res = receiveFromServer()
         code = res[:3] 
         
@@ -80,9 +81,9 @@ if __name__ == '__main__':
             sendToServer(publicKey)
         # if res start with #08, we can now end the connection
         elif code == '#08':
+            print('Connection ended')
             ClientMultiSocket.close()
-            print('Connection closed')
-            exit(0)
+            running = False
         # if res start with #09, it's an error code, print it and exit
         elif code == '#09':
             print(res)
